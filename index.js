@@ -1,12 +1,16 @@
 import Vue from 'vue'
-import VueMap from './src/'
+import VEM from './src/'
+import 'ol/ol.css'
 
-Vue.use(VueMap)
+Vue.use(VEM)
 
 new Vue({
   el: '#app',
   render() {
-    return <v-map><v-map-layer /></v-map>
+    return <div>
+      <vem-map style="display: inline-block; width: 45vw; margin: 2vw;"><vem-layer /></vem-map>
+      <vem-map style="display: inline-block; width: 45vw; margin: 2vw;"><vem-layer /></vem-map>
+    </div>
   }
 })
 

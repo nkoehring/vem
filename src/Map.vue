@@ -11,7 +11,7 @@ import Control from 'ol/control'
 import Interaction from 'ol/interaction'
 
 export default {
-  name: 'v-map',
+  name: 'vem-map',
   props: {
     view: {
       type: Object,
@@ -31,7 +31,11 @@ export default {
       interactions: Interaction.defaults(),
       loadTilesWhileAnimating: true,
       layers: [],
-      view: new View(this.view),
+      view: new View({
+        center: [this.view.lon, this.view.lat],
+        zoom: this.view.zoom,
+        rotation: this.view.rotation
+      }),
       ...this.olOptions // this overwrites / adds to defaults
     }
     this.$olMap = new Map(options)

@@ -12,7 +12,7 @@ import VectorSource from 'ol/source/vector'
 import OSMSource from 'ol/source/osm'
 
 export default {
-  name: 'v-map-layer',
+  name: 'vem-layer',
   props: {
     // supported values: auto, tile, vector
     // 'auto' tries to guess the layer type from the source and is the default
@@ -26,8 +26,13 @@ export default {
     }
   },
   mounted () {
-    const Layer = this.source instanceof TileSource ? TileLayer : VectorLayer
+    let Layer
+    if (this.type === 'tile') Layer = TileLayer
+    else if (this.type === 'vector') Layer = VectorLayer
+    else Layer = this.source instanceof TileSource ? TileLayer : VectorLayer
+
     this.$layer = new Layer({ source: this.source })
+    console.log(this.source, this.$layer)
     // waiting for next tick to have parent fully initialised
     this.$nextTick(_ => this.$parent.$emit('addLayer', {layer: this.$layer}))
   }

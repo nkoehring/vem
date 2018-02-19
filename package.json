@@ -1,7 +1,7 @@
 {
-  "name": "v-map",
+  "name": "vem",
   "version": "0.0.1",
-  "description": "Vuejs 2.0 easy spatial data views (aka Maps)",
+  "description": "Vuejs 2.0 Easy Maps with OpenLayers",
   "main": "./src/index.js",
   "scripts": {
     "build": "poi build ./src/index.js",
