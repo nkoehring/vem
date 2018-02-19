@@ -1,0 +1,33 @@
+{
+  "name": "v-map",
+  "version": "0.0.1",
+  "description": "Vuejs 2.0 easy spatial data views (aka Maps)",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "poi build ./src/index.js",
+    "test": "poi test ./src/index.js",
+    "dev": "poi ./index.js",
+    "watch": "poi watch ./src/index.js"
+  },
+  "keywords": [
+    "vue",
+    "vue2",
+    "vuejs",
+    "vuejs2",
+    "component",
+    "webcomponent",
+    "maps",
+    "openlayers",
+    "openlayers3",
+    "openlayers4",
+    "spatial"
+  ],
+  "author": "koehr <n@koehr.in>",
+  "license": "MIT",
+  "dependencies": {
+    "ol": "^4.6.4"
+  },
+  "devDependencies": {
+    "poi": "^9.6.13"
+  }
+}
