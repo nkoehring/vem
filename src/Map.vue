@@ -1,5 +1,5 @@
 <template>
-  <div class='v-map'>
+  <div class='vem-map'>
     <slot></slot>
   </div>
 </template>
@@ -42,6 +42,9 @@ export default {
     this.$on('addLayer', ev => {
       console.log('adding layer', ev)
       this.$olMap.addLayer(ev.layer)
+      if (ev.layer.type === 'VECTOR' && ev.fitMapToLayer) {
+        this.$olMap.getView().fit(ev.layer.getSource().getExtent())
+      }
     })
     this.$on('removeLayer', ev => this.$olMap.removeLayer(ev.layer))
 

@@ -1,41 +1,66 @@
 <template>
-  <div class='v-map-layer'></div>
+  <div class="vem-layer"><slot></slot></div>
 </template>
 
 <script>
 import VectorLayer from 'ol/layer/vector'
-import TileLayer from 'ol/layer/tile'
-
-import GenericSource from 'ol/source/source'
-import TileSource from 'ol/source/tile'
 import VectorSource from 'ol/source/vector'
-import OSMSource from 'ol/source/osm'
+import TileLayer from 'ol/layer/tile'
+import TileSource from 'ol/source/tile'
+import Feature from 'ol/format/feature'
+import Style from 'ol/style/style'
+import { parseFeatures, mapFeatureClass } from './featureHelper'
 
 export default {
   name: 'vem-layer',
   props: {
-    // supported values: auto, tile, vector
-    // 'auto' tries to guess the layer type from the source and is the default
-    type: {
-      type: String,
-      default: 'auto'
-    },
-    source: {
-      type: GenericSource,
-      default: _ => new OSMSource()
+    source: {type: Object, required: true},
+    fitMapToThisLayer: {type: Boolean, default: false},
+    opacity: {type: Number, default: 1},
+    visible: {type: Boolean, default: true},
+    zIndex: {type: Number, default: 0},
+    projection: {type: String, default: 'EPSG:3857'},
+    styleMap: {type: Object, default: _ => ({})},
+    format: Function,
+    extent: Array
+  },
+  data () {
+    return {
+      layer: null
     }
   },
   mounted () {
-    let Layer
-    if (this.type === 'tile') Layer = TileLayer
-    else if (this.type === 'vector') Layer = VectorLayer
-    else Layer = this.source instanceof TileSource ? TileLayer : VectorLayer
+    const defaultStyle = this.styleMap ? this.styleMap.default : Style.defaultFunction()
+    const styleFunc = feature => {
+      const mappedStyle = mapFeatureClass(feature, this.styleMap)
+      return mappedStyle || defaultStyle
+    }
+    const options = {
+      opacity: this.opacity,
+      visible: this.visible,
+      zIndex: this.zIndex,
+      extent: this.extent,
+      style: styleFunc
+    }
 
-    this.$layer = new Layer({ source: this.source })
-    console.log(this.source, this.$layer)
-    // waiting for next tick to have parent fully initialised
-    this.$nextTick(_ => this.$parent.$emit('addLayer', {layer: this.$layer}))
+    if (this.source instanceof TileSource) {
+      this.layer = new TileLayer({ source: this.source, ...options })
+    } else if (this.source instanceof VectorSource) {
+      this.layer = new VectorLayer({ source: this.source, ...options })
+    } else if (this.format) {
+      const features = parseFeatures(this.format, this.projection, this.source)
+      const source = new VectorSource({ features })
+      this.layer = new VectorLayer({ source, ...options })
+    }
+
+    if (this.layer.type === 'VECTOR' && !options.zIndex) {
+      this.layer.setZIndex(1)
+    }
+
+    this.$nextTick(_ => this.$parent.$emit('addLayer', {
+      layer: this.layer,
+      fitMapToLayer: this.fitMapToThisLayer
+    }))
   }
 }
 </script>
-
