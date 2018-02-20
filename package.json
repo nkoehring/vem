@@ -1,6 +1,6 @@
 {
   "name": "vem",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Vuejs 2.0 Easy Maps with OpenLayers",
   "main": "./src/index.js",
   "scripts": {
