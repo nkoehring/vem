@@ -1,9 +1,11 @@
 import Map from './Map'
-import Layer from './Layer'
+import TileLayer from './TileLayer'
+import VectorLayer from './VectorLayer'
 
 export default {
   install (Vue, options) {
     Vue.component('vem-map', Map)
-    Vue.component('vem-layer', Layer)
+    Vue.component('tile-layer', TileLayer)
+    Vue.component('vector-layer', VectorLayer)
   }
 }

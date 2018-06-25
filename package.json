@@ -6,7 +6,7 @@
   "scripts": {
     "build": "poi build ./src/index.js",
     "test": "poi test ./src/index.js",
-    "dev": "poi ./index.js",
+    "dev": "poi ./example/index.js",
     "watch": "poi watch ./src/index.js"
   },
   "keywords": [
@@ -25,9 +25,10 @@
   "author": "koehr <n@koehr.in>",
   "license": "MIT",
   "dependencies": {
-    "ol": "^4.6.4"
+    "ol": "^4.6.5"
   },
   "devDependencies": {
-    "poi": "^9.6.13"
+    "poi": "^10.2",
+    "raw-loader": "^0.5"
   }
 }

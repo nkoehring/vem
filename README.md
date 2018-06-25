@@ -2,7 +2,7 @@
 
 Vuejs Easy Maps
 
-Simple but powerful maps in Vuejs2+ with OpenLayers.
+Easy but powerful maps for Vuejs2+ with OpenLayers.
 
 ## Minimal Example
 
@@ -28,7 +28,7 @@ The following [Vue SFC](https://vuejs.org/v2/guide/single-file-components.html) 
 <template>
   <vem-map>
     <vem-layer />
-    <vem-layer :source="geojson" :format="GeoJSON" :fitMapToThisLayer="true" />
+    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
   </vem-map>
 </template>
 
@@ -38,9 +38,7 @@ import jsonData from './src/assets/data.json'
 
 export default {
   data () {
-    return {
-      geojson: jsonData.geojson
-    }
+    return { jsonData }
   }
 }
 </script>
@@ -68,7 +66,7 @@ export default {
   data () {
     return {
       // this might give strange results if your data isn't EPSG:4326 projected
-      features: new GeoJSON().readFeatures(jsonData.geojson)
+      features: new GeoJSON().readFeatures(jsonData)
     }
   }
 }
@@ -76,3 +74,84 @@ export default {
 ```
 
 It is usually more convenient to use the format parameter because VEM handles the projection for you. If your data is not EPSG:3857 (aka WSG84, aka what you usually have on web-based maps) projected, you can tell VEM using the `projection` attribute. The default should work in most cases though.
+
+## Map click
+
+The map component emits click events:
+
+```vue
+<template>
+  <vem-map @click="onMapClick">
+    <vem-layer />
+    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
+  </vem-map>
+</template>
+
+<script>
+import GeoJSON from 'ol/format/geojson'
+import jsonData from './src/assets/data.json'
+
+export default {
+  data () {
+    return { jsonData }
+  },
+  methods: {
+    onMapClick (ev) {
+      console.log('clicked on map', ev)
+    }
+  }
+}
+</script>
+```
+
+The emitted object has the following form:
+
+```js
+{
+  pixel: Array,  // pixel coordinates of click, eg [23.5, 42]
+  lonlat: Array, // map coordinates of click, eg [13.5, 52.45]
+  pointerEvent: ol.pointer.PointerEvent, // original PointerEvent from OpenLayers
+  originalEvent: ol.MapBrowserPointerEvent, // originally emitted event
+  feature: ol.Feature // clicked map feature (on vector maps)
+}
+```
+
+## Zoom state
+
+The map component also supports a temporary zoom state. It is possible to set the `zoomToExtent` or `zoomToFeature` attributes to define the area to zoom to. Typical usage would be to zoom on a clicked feature:
+
+```vue
+<template>
+  <vem-map @click="onMapClick" :zoomToFeature="highlightedFeature">
+    <vem-layer />
+    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
+  </vem-map>
+</template>
+
+<script>
+import GeoJSON from 'ol/format/geojson'
+import jsonData from './src/assets/data.json'
+
+export default {
+  data () {
+    return {
+      jsonData,
+      highlightedFeature: null
+    }
+  },
+  methods: {
+    onMapClick (ev) {
+      console.log('clicked on map', ev)
+      
+      if (this.highlightedFeature === ev.feature) {
+        this.highlightedFeature = null
+      } else {
+        this.highlightedFeature = ev.feature
+      }
+    }
+  }
+}
+</script>
+```
+
+To see this in action, run `npm run dev` in the source folder and go to http://localhost:4000 .

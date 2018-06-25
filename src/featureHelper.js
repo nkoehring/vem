@@ -1,3 +1,8 @@
+// somehow checking for instanceof olFeature doesn't always work?!
+export function isFeature (x) {
+  return !!(x && x.getGeometry && x.getGeometry.call)
+}
+
 export function parseFeatures (Format, featureProjection, data) {
   const reader = new Format({
     defaultDataProjection: 'EPSG:4326',

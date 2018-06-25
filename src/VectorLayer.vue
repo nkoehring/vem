@@ -1,24 +1,23 @@
 <template>
-  <div class="vem-layer"><slot></slot></div>
+  <div class="vector-layer"><slot></slot></div>
 </template>
 
 <script>
+import OSM from 'ol/source/osm'
 import VectorLayer from 'ol/layer/vector'
 import VectorSource from 'ol/source/vector'
-import TileLayer from 'ol/layer/tile'
-import TileSource from 'ol/source/tile'
 import Feature from 'ol/format/feature'
 import Style from 'ol/style/style'
 import { parseFeatures, mapFeatureClass } from './featureHelper'
 
 export default {
-  name: 'vem-layer',
+  name: 'vector-layer',
   props: {
-    source: {type: Object, required: true},
+    source: {type: [String, Object], default: OSM},
     fitMapToThisLayer: {type: Boolean, default: false},
     opacity: {type: Number, default: 1},
     visible: {type: Boolean, default: true},
-    zIndex: {type: Number, default: 0},
+    zIndex: {type: Number, default: 1},
     projection: {type: String, default: 'EPSG:3857'},
     styleMap: {type: Object, default: _ => ({})},
     format: Function,
@@ -43,18 +42,12 @@ export default {
       style: styleFunc
     }
 
-    if (this.source instanceof TileSource) {
-      this.layer = new TileLayer({ source: this.source, ...options })
-    } else if (this.source instanceof VectorSource) {
-      this.layer = new VectorLayer({ source: this.source, ...options })
-    } else if (this.format) {
+    if (this.format) {
       const features = parseFeatures(this.format, this.projection, this.source)
       const source = new VectorSource({ features })
       this.layer = new VectorLayer({ source, ...options })
-    }
-
-    if (this.layer.type === 'VECTOR' && !options.zIndex) {
-      this.layer.setZIndex(1)
+    } else {
+      this.layer = new VectorLayer({ source: this.source, ...options })
     }
 
     this.$nextTick(_ => this.$parent.$emit('addLayer', {
