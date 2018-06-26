@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div id="app">
     <header>
       <h1>VEM</h1>
     </header>
-    <vem-map @click="onMapClick" :zoomToFeature="highlightedFeature">
+    <vem-map id="geojson-example" @click="onMapClick" :view.sync="mapView" :zoomToFeature="highlightedFeature">
       <tile-layer />
       <vector-layer :source="mapData" :format="GeoJSON" :fitMapToThisLayer="true" :styleMap="styleMap" />
+    </vem-map>
+    <vem-map id="external-controls-example" @click="onMapClick" :view.sync="mapView">
+      <tile-layer />
     </vem-map>
   </div>
 </template>
@@ -22,7 +25,8 @@ export default {
       GeoJSON,
       mapData,
       styleMap,
-      highlightedFeature: null
+      highlightedFeature: null,
+      mapView: undefined
     }
   },
   methods: {
@@ -39,3 +43,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.vem-map {
+  width: 50vw;
+  margin: 1em auto;
+}
+</style>
