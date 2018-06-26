@@ -21,7 +21,10 @@ export default {
     projection: {type: String, default: 'EPSG:3857'},
     styleMap: {type: Object, default: _ => ({})},
     format: Function,
-    extent: Array
+    extent: Array,
+    // resolution boundaries in which the layer is visible
+    maxResolution: Number,
+    minResolution: Number
   },
   data () {
     return {
@@ -48,6 +51,13 @@ export default {
       this.layer = new VectorLayer({ source, ...options })
     } else {
       this.layer = new VectorLayer({ source: this.source, ...options })
+    }
+
+    if (this.minResolution) {
+      this.layer.setMinResolution(this.minResolution)
+    }
+    if (this.maxResolution) {
+      this.layer.setMaxResolution(this.maxResolution)
     }
 
     this.$nextTick(_ => this.$parent.$emit('addLayer', {
