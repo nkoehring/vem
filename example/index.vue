@@ -7,7 +7,7 @@
       <tile-layer />
       <vector-layer :source="mapData" :format="GeoJSON" :fitMapToThisLayer="true" :styleMap="styleMap" />
     </vem-map>
-    <vem-map id="external-controls-example" @click="onMapClick" :view.sync="mapView">
+    <vem-map id="external-controls-example" @click="onMapClick" :syncImmediately="true" :view.sync="mapView">
       <tile-layer />
     </vem-map>
   </div>

@@ -17,6 +17,7 @@ export default {
   data () {
     return {
       ignoreNextUpdate: false,
+      ignoreAllUpdates: false,
       savedState: null
     }
   },
@@ -34,10 +35,17 @@ export default {
       validator: isFeature
     },
     zoomToExtent: Array, // type olExtent: [minx,miny,maxx,maxy]
+    syncImmediately: {
+      type: Boolean,
+      default: false
+    },
     olOptions: Object
   },
   watch: {
     view (newView) {
+      if (this.ignoreAllUpdates) {
+        return
+      }
       if (this.ignoreNextUpdate) {
         // avoid infinite loops triggered by reactive updates
         this.ignoreNextUpdate = false
@@ -119,6 +127,7 @@ export default {
       const view = this.$olMap.getView()
 
       // lets not have infinite update loops, I hate that
+      this.ignoreAllUpdates = false
       this.ignoreNextUpdate = true
 
       this.$emit('update:view', {
@@ -127,6 +136,22 @@ export default {
         rotation: view.getRotation()
       })
     })
+    if (this.syncImmediately) {
+      this.$olMap.on('movestart', ev => {
+        this.ignoreAllUpdates = true
+      })
+      this.$olMap.on('pointerdrag', ev => {
+        this.$nextTick(() => {
+          const view = this.$olMap.getView()
+
+          this.$emit('update:view', {
+            lonlat: proj.toLonLat(view.getCenter()),
+            zoom: view.getZoom(),
+            rotation: view.getRotation()
+          })
+        })
+      })
+    }
 
     console.log('MAP INITIALISED')
   }
