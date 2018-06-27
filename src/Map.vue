@@ -113,6 +113,10 @@ export default {
       }
     })
     this.$on('removeLayer', ev => this.$olMap.removeLayer(ev.layer))
+
+    this.$on('addInteraction', ev => this.$olMap.addInteraction(ev.interaction))
+    this.$on('removeInteraction', ev => this.$olMap.removeInteraction(ev.interaction))
+
     this.$olMap.on('click', ev => {
       const feature = ev.map.forEachFeatureAtPixel(ev.pixel, f => f)
       this.$emit('click', {

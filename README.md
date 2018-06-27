@@ -154,4 +154,52 @@ export default {
 </script>
 ```
 
+## Markers
+
+Markers can be added to the map, using the `<map-marker />` component:
+
+```vue
+<template>
+  <vem-map>
+    <vem-layer />
+    <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" />
+  </vem-map>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>
+```
+
+All fields are optional. `name` defaults to "Marker" and the coordinates default to 0.0, 0.0.
+
+Markers are static and not draggable by default, but this can be changed easily:
+
+```vue
+<template>
+  <vem-map>
+    <vem-layer />
+    <map-marker :lon.sync="longitude" :lat.sync="latitude" :draggable="true" />
+  </vem-map>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      // will be kept in sync with the marker position
+      longitude: 13.5,
+      latitude: 52.5
+    }
+  }
+}
+</script>
+```
+
+
 To see this in action, run `npm run dev` in the source folder and go to http://localhost:4000 .

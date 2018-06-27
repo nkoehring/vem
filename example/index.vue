@@ -6,9 +6,11 @@
     <vem-map id="geojson-example" @click="onMapClick" :view.sync="mapView" :zoomToFeature="highlightedFeature">
       <tile-layer />
       <vector-layer :source="mapData" :format="GeoJSON" :fitMapToThisLayer="true" :styleMap="styleMap" />
+      <map-marker name="static" :lon="markerLon" :lat="markerLat" />
     </vem-map>
     <vem-map id="external-controls-example" @click="onMapClick" :syncImmediately="true" :view.sync="mapView">
       <tile-layer />
+      <map-marker name="draggable" :lon.sync="markerLon" :lat.sync="markerLat" :draggable="true" />
     </vem-map>
   </div>
 </template>
@@ -26,7 +28,9 @@ export default {
       mapData,
       styleMap,
       highlightedFeature: null,
-      mapView: undefined
+      mapView: undefined, // will be updated thanks to `fitMapToThisLayer`
+      markerLat: 52.4555,
+      markerLon: 13.5
     }
   },
   methods: {
