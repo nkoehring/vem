@@ -8,7 +8,7 @@ import VectorLayer from 'ol/layer/vector'
 import VectorSource from 'ol/source/vector'
 import Feature from 'ol/format/feature'
 import Style from 'ol/style/style'
-import { parseFeatures, mapFeatureClass } from './featureHelper'
+import { parseFeatures, mapFeatureClasses } from './featureHelper'
 
 export default {
   name: 'vector-layer',
@@ -34,8 +34,8 @@ export default {
   mounted () {
     const defaultStyle = this.styleMap ? this.styleMap.default : Style.defaultFunction()
     const styleFunc = feature => {
-      const mappedStyle = mapFeatureClass(feature, this.styleMap)
-      return mappedStyle || defaultStyle
+      const mappedStyles = mapFeatureClasses(feature, this.styleMap)
+      return mappedStyles.length ? mappedStyles : defaultStyle
     }
     const options = {
       opacity: this.opacity,

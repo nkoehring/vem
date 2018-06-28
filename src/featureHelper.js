@@ -11,9 +11,16 @@ export function parseFeatures (Format, featureProjection, data) {
   return reader.readFeatures(data)
 }
 
-export function mapFeatureClass (feature, featureMap) {
-  const classes = feature.get('class')
-  for (const key in featureMap) {
-    if (classes.indexOf(key) >= 0) return featureMap[key]
-  }
+export function mapFeatureClasses (feature, featureMap) {
+  const features = Object.keys(featureMap)
+  const classProp = featureMap._classProp || 'class'
+  let classList = feature.get(classProp)
+
+  // the feature could have single class or a list of classes
+  // this makes sure to always have an array to simplify the handling
+  if (!Array.isArray(classList)) classList = [classList]
+
+  return features
+         .filter(key => classList.indexOf(key) >= 0)
+         .map(key => featureMap[key])
 }
