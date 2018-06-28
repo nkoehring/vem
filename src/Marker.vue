@@ -53,8 +53,11 @@ export default {
       default: false
     },
     // resolution boundaries in which the marker is visible
-    maxResolution: Number, // good default could be 0.15
-    minResolution: Number
+    maxResolution: Number,
+    minResolution: Number,
+    // zoom level boundaries in which the marker is visible
+    maxZoom: Number,
+    minZoom: Number
   },
   data () {
     return {
@@ -107,6 +110,7 @@ export default {
     const source = new VectorSource({ features: [this.feature] })
     this.layer = new VectorLayer({ source, zIndex: 1000 })
 
+    console.log('parent methods', this.$parent.$olMap)
     if (this.minResolution) {
       this.layer.setMinResolution(this.minResolution)
     }
@@ -131,7 +135,16 @@ export default {
     })
 
     this.$nextTick(_ => {
-      this.$parent.$emit('addLayer', { layer: this.layer })
+      this.$parent.$emit('addLayer', {
+        layer: this.layer,
+        // because resolution boundaries via zoom level are only possible with
+        // _ol_View_.getResolutionForZoom we let the map component handle this
+        minResolution: this.minResolution,
+        maxResolution: this.maxResolution,
+        minZoom: this.minZoom,
+        maxZoom: this.maxZoom
+      })
+
       if (this.draggable) {
         this.$parent.$emit('addInteraction', { interaction: this.translate })
       }

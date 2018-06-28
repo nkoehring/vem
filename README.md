@@ -201,5 +201,51 @@ export default {
 </script>
 ```
 
+## Resolution boundaries
+
+Markers and VectorLayers can be set to be invisible outside certain resolution or zoom level boundaries:
+
+```vue
+<template>
+  <vem-map>
+    <vem-layer />
+    <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" :maxResolution="100" />
+  </vem-map>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>
+```
+
+This marker only becomes visible when the map is zoomed pretty close to Berlin already, somewhere between zoom level 10 and 11.
+
+Because resolution values might not be very obvious. It is also possible to use the zoom value:
+
+```vue
+<template>
+  <vem-map>
+    <vem-layer />
+    <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" :minZoom="11" />
+  </vem-map>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>
+```
+
+This hides the marker at zoom levels smaller than 11.
+
 
 To see this in action, run `npm run dev` in the source folder and go to http://localhost:4000 .

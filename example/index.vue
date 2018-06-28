@@ -5,12 +5,12 @@
     </header>
     <vem-map id="geojson-example" @click="onMapClick" :view.sync="mapView" :zoomToFeature="highlightedFeature">
       <tile-layer />
-      <vector-layer :source="mapData" :format="GeoJSON" :fitMapToThisLayer="true" :styleMap="styleMap" />
+      <vector-layer :source="mapData" :format="GeoJSON" :fitMapToThisLayer="true" :styleMap="styleMap" :maxResolution="5" />
       <map-marker name="static" :lon="markerLon" :lat="markerLat" />
     </vem-map>
     <vem-map id="external-controls-example" @click="onMapClick" :syncImmediately="true" :view.sync="mapView">
       <tile-layer />
-      <map-marker name="draggable" :lon.sync="markerLon" :lat.sync="markerLat" :draggable="true" />
+      <map-marker name="draggable" :lon.sync="markerLon" :lat.sync="markerLat" :draggable="true" :minZoom="10" />
     </vem-map>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
   methods: {
     onMapClick (ev) {
       console.log('clicked!', ev)
+      const view = ev.originalEvent.map.getView()
 
       // reset to null if the last clicked feature is clicked again
       if (this.highlightedFeature === ev.feature) {

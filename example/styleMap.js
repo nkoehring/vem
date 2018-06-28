@@ -15,7 +15,7 @@ export default {
     })
   }),
   outer: new Style({
-    stroke: new Stroke({ color: '#999', width: 10 }),
+    stroke: new Stroke({ color: '#999', width: 5 }),
     fill: new Fill({ color: '#F5F5F5' }),
     text: null
   })

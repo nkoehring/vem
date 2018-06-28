@@ -106,8 +106,20 @@ export default {
     this.$olMap = new Map(options)
 
     this.$on('addLayer', ev => {
-      console.log('adding layer', ev)
       this.$olMap.addLayer(ev.layer)
+
+      if (ev.minResolution) {
+        ev.layer.setMinResolution(ev.minResolution)
+      } else if (ev.maxZoom) {
+        const resolution = this.$olMap.getView().getResolutionForZoom(ev.maxZoom)
+        ev.layer.setMinResolution(resolution)
+      }
+      if (ev.maxResolution) {
+        ev.layer.setMaxResolution(ev.maxResolution)
+      } else if (ev.minZoom) {
+        const resolution = this.$olMap.getView().getResolutionForZoom(ev.minZoom)
+        ev.layer.setMaxResolution(resolution)
+      }
       if (ev.layer.type === 'VECTOR' && ev.fitMapToLayer) {
         this.$olMap.getView().fit(ev.layer.getSource().getExtent())
       }
