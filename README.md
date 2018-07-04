@@ -14,7 +14,7 @@ Vue.use(VEM)
 
 new Vue({
   el: '#app',
-  template: '<vem-map><vem-layer /></vem-map>'
+  template: '<vem-map><tile-layer /></vem-map>'
 })
 ```
 
@@ -27,8 +27,8 @@ The following [Vue SFC](https://vuejs.org/v2/guide/single-file-components.html) 
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
-    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
+    <tile-layer />
+    <vector-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
   </vem-map>
 </template>
 
@@ -53,8 +53,8 @@ If a raw data source is given, the [format](http://openlayers.org/en/latest/apid
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
-    <vem-layer :source="features" :fitMapToThisLayer="true" />
+    <tile-layer />
+    <vector-layer :source="features" :fitMapToThisLayer="true" />
   </vem-map>
 </template>
 
@@ -82,8 +82,8 @@ The map component emits click events:
 ```vue
 <template>
   <vem-map @click="onMapClick">
-    <vem-layer />
-    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
+    <tile-layer />
+    <vector-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
   </vem-map>
 </template>
 
@@ -123,8 +123,8 @@ The map component also supports a temporary zoom state. It is possible to set th
 ```vue
 <template>
   <vem-map @click="onMapClick" :zoomToFeature="highlightedFeature">
-    <vem-layer />
-    <vem-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
+    <tile-layer />
+    <vector-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
   </vem-map>
 </template>
 
@@ -161,7 +161,7 @@ Markers can be added to the map, using the `<map-marker />` component:
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
+    <tile-layer />
     <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" />
   </vem-map>
 </template>
@@ -183,7 +183,7 @@ Markers are static and not draggable by default, but this can be changed easily:
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
+    <tile-layer />
     <map-marker :lon.sync="longitude" :lat.sync="latitude" :draggable="true" />
   </vem-map>
 </template>
@@ -208,7 +208,7 @@ Markers and VectorLayers can be set to be invisible outside certain resolution o
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
+    <tile-layer />
     <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" :maxResolution="100" />
   </vem-map>
 </template>
@@ -230,7 +230,7 @@ Because resolution values might not be very obvious. It is also possible to use 
 ```vue
 <template>
   <vem-map>
-    <vem-layer />
+    <tile-layer />
     <map-marker name="somewhere-in-berlin" :lon="13.5" :lat="52.5" :minZoom="11" />
   </vem-map>
 </template>

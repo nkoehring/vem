@@ -2,12 +2,14 @@
   "name": "vem",
   "version": "0.0.3",
   "description": "Vuejs 2.0 Easy Maps with OpenLayers",
-  "main": "./src/index.js",
+  "main": "./dist/main.js",
   "scripts": {
-    "build": "poi build ./src/index.js",
+    "build": "poi build -m --format umd --module-name vem ./src/index.js && npm run build-docs",
+    "build-docs": "poi build --clear-console false --out-dir ./docs ./src/docs/main.js",
     "test": "poi test ./src/index.js",
     "dev": "poi ./example/index.js",
-    "watch": "poi watch ./src/index.js"
+    "watch": "poi watch ./src/index.js",
+    "docs": "poi ./src/docs/main.js -d ./docs"
   },
   "keywords": [
     "vue",
@@ -28,7 +30,10 @@
     "ol": "^4.6.5"
   },
   "devDependencies": {
+    "node-sass": "^4.9.0",
     "poi": "^10.2",
-    "raw-loader": "^0.5"
+    "propdoc": "^0.9.3",
+    "raw-loader": "^0.5",
+    "sass-loader": "^7.0.3"
   }
 }

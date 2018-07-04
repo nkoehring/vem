@@ -14,6 +14,11 @@ import { isFeature } from '@/featureHelper'
 
 export default {
   name: 'vem-map',
+  introduction: 'Container component to initialize a map.',
+  description: `
+    Each map instance is created using this component.
+  `,
+  token: '<vem-map><!-- this will not do much, see TileLayer and VectorLayer --></vem-map>',
   data () {
     return {
       ignoreNextUpdate: false,
@@ -29,17 +34,26 @@ export default {
         lat: 0.0,
         zoom: 2.0,
         rotation: 0.0
-      })
+      }),
+      note: 'Object to set initial map view. Can be synced.'
     },
     zoomToFeature: {
-      validator: isFeature
+      validator: isFeature,
+      note: 'A map feature to zoom to. If set dynamically, the former view state is put on a stack and the map reverts to it after unsetting this.'
     },
-    zoomToExtent: Array, // type olExtent: [minx,miny,maxx,maxy]
+    zoomToExtent: {
+      type: Array, // type olExtent: [minx,miny,maxx,maxy]
+      note: 'Same as `zoomToFeature` but using an extent, which is an array in the form of [min x, min y, max x, max y] coordinates.'
+    },
     syncImmediately: {
       type: Boolean,
-      default: false
+      default: false,
+      note: 'If set to true, the map emits events for every movement step instead of waiting for moveEnd.'
     },
-    olOptions: Object
+    olOptions: {
+      type: Object,
+      note: 'Object with options given the OpenLayers map on initialization.'
+    }
   },
   watch: {
     view (newView) {
