@@ -9,12 +9,33 @@ import TileSource from 'ol/source/tile'
 
 export default {
   name: 'map-layer',
+  introduction: 'TileLayers are used for picture based maps like OpenStreetMap.',
+  description: 'Creates a layer with tiles from the given data source and defaults to OpenStreetMap.',
+  token: '<vem-map><tile-layer /></vem-map>',
   props: {
-    source: {type: TileSource, default: function () { return new OSM() }},
-    opacity: {type: Number, default: 1},
-    visible: {type: Boolean, default: true},
-    zIndex: {type: Number, default: 0},
-    extent: Array
+    source: {
+      type: Object,
+      default: function () { return new OSM() },
+      note: 'Source object. Has to be an instance of `ol/source/tile`. Defaults to `ol/source/osm`. `static`'
+    },
+    opacity: {
+      type: Number,
+      default: 1,
+      note: 'Sets opacity for layer from 0.0 (fully transparent) to 1.0 (fully opaque). `dynamic`'
+    },
+    visible: {
+      type: Boolean,
+      default: true,
+      note: 'Layers can be hidden with this attribute. `dynamic`'
+    },
+    zIndex: {
+      type: Number, default: 0,
+      note: 'Sets the z-index. Tile layers default to 0, vector layers default to 1. `dynamic`'
+    },
+    extent: {
+      type: Array,
+      note: 'Set the extent at which the layer is visible. `dynamic`'
+    }
   },
   data () {
     return {

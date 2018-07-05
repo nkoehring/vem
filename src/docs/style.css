@@ -1,0 +1,93 @@
+.props .proprow:nth-child(even) {
+  background-color: rgba(43, 59, 67, 0.05);
+}
+
+.props .proprow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.6rem 0.8rem;
+}
+
+.props .labels {
+  padding: 0.8rem;
+}
+
+.props .labels > .propcol {
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #547484;
+}
+
+.props .labels .name span {
+  margin-left: 0.4rem;
+}
+
+.props .propcol {
+  font-size: 1.2rem;
+  flex: 1;
+}
+
+.props .propcol.notes {
+  flex: 2;
+}
+
+.props .name {
+  font-weight: 600;
+}
+
+.props .name.required span {
+  border-bottom: 0.2rem solid rgba(206, 119, 128, 0.5);
+}
+
+.propcol * {
+  display: inline;
+}
+
+.propdoc {
+  font-family: sans-serif;
+  margin-bottom: 12rem;
+}
+
+code {
+  font-family: monofur, Consolas, "Liberation Mono", monospace;
+  background-color: rgba(243, 195, 135, 0.5);
+  color: #14435A;
+  padding: 0.2rem;
+}
+
+pre code {
+  line-height: 1.8;
+  padding: 1.2rem;
+}
+
+pre code.labelled, .token pre code {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+pre code.labelled:after, .token pre code:after {
+  content: attr(data-lang);
+  font-size: 0.8rem;
+  color: #CE7780;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  position: absolute;
+  right: 1.2rem;
+  bottom: -2rem;
+}
+
+.use, .props {
+  margin: 2.8rem 0;
+}
+
+.token pre {
+  margin: 0;
+}
+
+.use {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2.8rem;
+}

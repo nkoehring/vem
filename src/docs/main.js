@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Documentation from './Documentation.vue'
-import 'propdoc/style.scss'
+import './style.css'
 
 new Vue({
   el: '#app',

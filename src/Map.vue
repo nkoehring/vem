@@ -15,10 +15,8 @@ import { isFeature } from '@/featureHelper'
 export default {
   name: 'vem-map',
   introduction: 'Container component to initialize a map.',
-  description: `
-    Each map instance is created using this component.
-  `,
-  token: '<vem-map><!-- this will not do much, see TileLayer and VectorLayer --></vem-map>',
+  description: 'Creates map instances and is the container for all layers and markers.',
+  token: '<vem-map><!-- see TileLayer and VectorLayer --></vem-map>',
   data () {
     return {
       ignoreNextUpdate: false,

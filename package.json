@@ -5,7 +5,7 @@
   "main": "./dist/main.js",
   "scripts": {
     "build": "poi build -m --format umd --module-name vem ./src/index.js && npm run build-docs",
-    "build-docs": "poi build --clear-console false --out-dir ./docs ./src/docs/main.js",
+    "build-docs": "poi build --public-path '/vem/api' --out-dir ./docs/api/ ./src/docs/main.js",
     "test": "poi test ./src/index.js",
     "dev": "poi ./example/index.js",
     "watch": "poi watch ./src/index.js",
