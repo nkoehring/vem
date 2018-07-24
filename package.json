@@ -5,11 +5,11 @@
   "main": "./dist/main.js",
   "scripts": {
     "build": "poi build -m --format umd --module-name vem ./src/index.js && npm run build-docs",
-    "build-docs": "poi build --public-path '/vem/api' --out-dir ./docs/api/ ./src/docs/main.js",
+    "build-docs": "vuepress build ./src/docs",
     "test": "poi test ./src/index.js",
     "dev": "poi ./example/index.js",
     "watch": "poi watch ./src/index.js",
-    "docs": "poi ./src/docs/main.js -d ./docs"
+    "docs": "vuepress dev ./src/docs"
   },
   "keywords": [
     "vue",
@@ -34,6 +34,10 @@
     "poi": "^10.2",
     "propdoc": "^0.9.3",
     "raw-loader": "^0.5",
-    "sass-loader": "^7.0.3"
+    "sass-loader": "^7.0.3",
+    "vuepress": "^0.12.0",
+    "markdown-it-v": "^1.0.0-alpha.3",
+    "markdown-it-v-codemirror-highlighter": "^1.0.0-alpha.1",
+    "vue-codemirror-lite": "^1.0.4"
   }
 }
