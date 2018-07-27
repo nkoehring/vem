@@ -5,11 +5,11 @@
   "main": "./dist/main.js",
   "scripts": {
     "build": "poi build -m --format umd --module-name vem ./src/index.js && npm run build-docs",
-    "build-docs": "poi build --public-path '/vem/api' --out-dir ./docs/api/ ./src/docs/main.js",
+    "build-docs": "vuepress build ./src/docs",
     "test": "poi test ./src/index.js",
     "dev": "poi ./example/index.js",
     "watch": "poi watch ./src/index.js",
-    "docs": "poi ./src/docs/main.js -d ./docs"
+    "dev-docs": "vuepress dev ./src/docs"
   },
   "keywords": [
     "vue",
@@ -27,13 +27,12 @@
   "author": "koehr <n@koehr.in>",
   "license": "MIT",
   "dependencies": {
-    "ol": "^4.6.5"
+    "ol": "^4.6.5",
+    "vuepress": "^0.12.0"
   },
   "devDependencies": {
     "node-sass": "^4.9.0",
     "poi": "^10.2",
-    "propdoc": "^0.9.3",
-    "raw-loader": "^0.5",
-    "sass-loader": "^7.0.3"
+    "raw-loader": "^0.5"
   }
 }
