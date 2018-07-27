@@ -1,7 +1,7 @@
 module.exports = {
   title: 'VEM',
   description: 'Vue Easy Maps',
-  base: '/docs',
+  base: '/vem',
   dest: './docs',
   serviceWorker: false,
   evergreen: true,
