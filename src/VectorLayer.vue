@@ -19,7 +19,7 @@ export default {
     visible: {type: Boolean, default: true},
     zIndex: {type: Number, default: 1},
     projection: {type: String, default: 'EPSG:3857'},
-    styleMap: {type: Object, default: _ => ({})},
+    styleMap: Object,
     format: Function,
     extent: Array,
     // resolution boundaries in which the layer is visible
@@ -32,9 +32,9 @@ export default {
     }
   },
   mounted () {
-    const defaultStyle = this.styleMap ? this.styleMap.default : Style.defaultFunction()
+    const defaultStyle = this.styleMap && this.styleMap.default || Style.defaultFunction()
     const styleFunc = feature => {
-      const mappedStyles = mapFeatureClasses(feature, this.styleMap)
+      const mappedStyles = mapFeatureClasses(feature, this.styleMap || {})
       return mappedStyles.length ? mappedStyles : defaultStyle
     }
     const options = {
