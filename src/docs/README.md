@@ -1,3 +1,9 @@
+---
+title: 'VEM README'
+examples:
+  Minimal Example: minimal
+  Vector Data: vectordata
+---
 # VEM
 
 Vuejs Easy Maps
@@ -20,29 +26,11 @@ new Vue({
 
 This creates a map with default controls and an [OSM](https://openstreetmap.org) layer.
 
-## GeoJSON
+## Vector Data
 
-The following [Vue SFC](https://vuejs.org/v2/guide/single-file-components.html) renders [GeoJSON](https://macwright.org/2015/03/23/geojson-second-bite.html) data on top of an OSM layer.
+The following [Vue SFC](https://vuejs.org/v2/guide/single-file-components.html) renders vector data on top of a standard map. The example uses the TopoJSON format but that is by far not the only one supported. Checkout the [openlayers docs](https://openlayers.org/en/v4.6.3/apidoc/ol.format.html) to see all supported formats.
 
-```vue
-<template>
-  <vem-map>
-    <tile-layer />
-    <vector-layer :source="jsonData" :format="GeoJSON" :fitMapToThisLayer="true" />
-  </vem-map>
-</template>
-
-<script>
-import GeoJSON from 'ol/format/geojson'
-import jsonData from './src/assets/data.json'
-
-export default {
-  data () {
-    return { jsonData }
-  }
-}
-</script>
-```
+<<< @/src/docs/.vuepress/components/vectordata.vue
 
 Notice the `fitMapToThisLayer` attribute. This sets the center and zoom of the map to exactly fit the extent of the given data in. It should (obviously) only be used once and is only supported on layers with an actual size. VEM tries to nicely abstract away the difference between [TileLayer](http://openlayers.org/en/latest/apidoc/ol.layer.Tile.html) and [VectorLayer](http://openlayers.org/en/latest/apidoc/ol.layer.Vector.html) by automatically deciding which type is needed depending on the given source. Only VectorLayers have an actual size ('[extent](http://openlayers.org/en/latest/apidoc/ol.source.Vector.html#getExtent)'), which VEM can automatically fit into the viewport for you.
 
