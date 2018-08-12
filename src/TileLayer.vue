@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import OSM from 'ol/source/osm'
-import TileLayer from 'ol/layer/tile'
-import TileSource from 'ol/source/tile'
+import OSM from 'ol/source/OSM'
+import TileLayer from 'ol/layer/Tile'
+import TileSource from 'ol/source/Tile'
 
 export default {
   name: 'map-layer',

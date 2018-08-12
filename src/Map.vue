@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import Map from 'ol/map'
-import View from 'ol/view'
-import Control from 'ol/control'
-import Interaction from 'ol/interaction'
-import proj from 'ol/proj'
-import { isFeature } from '@/featureHelper'
+import Map from 'ol/Map'
+import View from 'ol/View'
+import { defaults as defaultControls } from 'ol/control'
+import { defaults as defaultInteractions } from 'ol/interaction'
+import { fromLonLat, toLonLat } from 'ol/proj'
+import { isFeature } from './featureHelper'
 
 export default {
   name: 'vem-map',
@@ -67,7 +67,7 @@ export default {
       const view = this.$olMap.getView()
       const { lonlat, zoom, rotation } = newView
 
-      if (Array.isArray(lonlat)) view.setCenter(proj.fromLonLat(lonlat))
+      if (Array.isArray(lonlat)) view.setCenter(fromLonLat(lonlat))
       if (typeof zoom === 'number') view.setZoom(zoom)
       if (typeof rotation === 'number') view.setRotation(rotation)
     },
@@ -104,8 +104,8 @@ export default {
   mounted () {
     const options = {
       target: this.$el,
-      controls: Control.defaults(),
-      interactions: Interaction.defaults(),
+      controls: defaultControls(),
+      interactions: defaultInteractions(),
       loadTilesWhileAnimating: true,
       layers: [],
       view: new View({
@@ -145,7 +145,7 @@ export default {
       const feature = ev.map.forEachFeatureAtPixel(ev.pixel, f => f)
       this.$emit('click', {
         pixel: ev.pixel,
-        lonlat: proj.toLonLat(ev.coordinate),
+        lonlat: toLonLat(ev.coordinate),
         pointerEvent: ev.pointerEvent,
         originalEvent: ev,
         feature
@@ -159,7 +159,7 @@ export default {
       this.ignoreNextUpdate = true
 
       this.$emit('update:view', {
-        lonlat: proj.toLonLat(view.getCenter()),
+        lonlat: toLonLat(view.getCenter()),
         zoom: view.getZoom(),
         rotation: view.getRotation()
       })
@@ -173,7 +173,7 @@ export default {
           const view = this.$olMap.getView()
 
           this.$emit('update:view', {
-            lonlat: proj.toLonLat(view.getCenter()),
+            lonlat: toLonLat(view.getCenter()),
             zoom: view.getZoom(),
             rotation: view.getRotation()
           })

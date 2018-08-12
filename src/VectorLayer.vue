@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import OSM from 'ol/source/osm'
-import VectorLayer from 'ol/layer/vector'
-import VectorSource from 'ol/source/vector'
-import Feature from 'ol/format/feature'
-import Style from 'ol/style/style'
+import OSM from 'ol/source/OSM'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import Feature from 'ol/format/Feature'
+import { createDefaultStyle } from 'ol/style/Style'
 import { parseFeatures, mapFeatureClasses } from './featureHelper'
 
 export default {
@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted () {
-    const defaultStyle = this.styleMap && this.styleMap.default || Style.defaultFunction()
+    const defaultStyle = this.styleMap && this.styleMap.default || createDefaultStyle()
     const styleFunc = feature => {
       const mappedStyles = mapFeatureClasses(feature, this.styleMap || {})
       return mappedStyles.length ? mappedStyles : defaultStyle

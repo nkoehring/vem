@@ -27,7 +27,7 @@
   "author": "koehr <n@koehr.in>",
   "license": "MIT",
   "dependencies": {
-    "ol": "^4.6.5"
+    "ol": "^5.1"
   },
   "devDependencies": {
     "node-sass": "^4.9.0",
@@ -35,9 +35,6 @@
     "propdoc": "^0.9.3",
     "raw-loader": "^0.5",
     "sass-loader": "^7.0.3",
-    "vuepress": "^0.12.0",
-    "markdown-it-v": "^1.0.0-alpha.3",
-    "markdown-it-v-codemirror-highlighter": "^1.0.0-alpha.1",
-    "vue-codemirror-lite": "^1.0.4"
+    "vuepress": "^0.12.0"
   }
 }
