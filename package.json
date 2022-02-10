@@ -31,7 +31,7 @@
     "vuepress": "^0.12.0"
   },
   "devDependencies": {
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "poi": "^10.2",
     "raw-loader": "^0.5"
   }
