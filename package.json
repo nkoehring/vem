@@ -28,11 +28,11 @@
   "license": "MIT",
   "dependencies": {
     "ol": "^4.6.5",
-    "vuepress": "^0.12.0"
+    "vuepress": "^1.9.7"
   },
   "devDependencies": {
     "node-sass": "^4.9.0",
-    "poi": "^10.2",
+    "poi": "^12.10",
     "raw-loader": "^0.5"
   }
 }
